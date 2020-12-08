@@ -51,8 +51,8 @@ def get_loader(args):
         TF.ToTensor()
     ])
 
-    trainset = torchvision.datasets.MNIST('/data', True, TF.ToTensor(), download= True)
-    validset = torchvision.datasets.MNIST('/data', False, TF.ToTensor(), download= True)
+    trainset = torchvision.datasets.MNIST('.data', True, TF.ToTensor(), download= True)
+    validset = torchvision.datasets.MNIST('.data', False, TF.ToTensor(), download= True)
 
     trainloader = torch.utils.data.DataLoader(trainset, batch_size = args.batchsize, shuffle = True, num_workers = 2, pin_memory = True)
     validloader = torch.utils.data.DataLoader(validset, batch_size = args.batchsize, shuffle = False, num_workers = 2, pin_memory = True)
