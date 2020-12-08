@@ -2,6 +2,7 @@ import argparse
 import torchvision
 import torch.optim
 import torch.nn as nn
+import os
 import torch.utils.data
 import torchvision.datasets
 import torchvision.transforms as TF
@@ -34,6 +35,8 @@ def parse_args():
     parser.add_argument("--batchsize", type=int, default=256)
     args = parser.parse_args()
 
+    args.dataroot = os.path.abspath(".data")
+
     return args
 
 def get_model(args):
@@ -51,8 +54,8 @@ def get_loader(args):
         TF.ToTensor()
     ])
 
-    trainset = torchvision.datasets.MNIST('.data', True, TF.ToTensor(), download= True)
-    validset = torchvision.datasets.MNIST('.data', False, TF.ToTensor(), download= True)
+    trainset = torchvision.datasets.MNIST(args.dataroot, True, TF.ToTensor(), download= True)
+    validset = torchvision.datasets.MNIST(args.dataroot, False, TF.ToTensor(), download= True)
 
     trainloader = torch.utils.data.DataLoader(trainset, batch_size = args.batchsize, shuffle = True, num_workers = 2, pin_memory = True)
     validloader = torch.utils.data.DataLoader(validset, batch_size = args.batchsize, shuffle = False, num_workers = 2, pin_memory = True)
